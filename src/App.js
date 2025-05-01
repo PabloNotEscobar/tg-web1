@@ -9,7 +9,7 @@ function App() {
     }, [])
 
 
-    const closeHandler = () => {
+    const onClose = () => {
         tg.close()
     }
 
@@ -17,7 +17,7 @@ function App() {
     return (
         <div className="App">
             work
-            <button onClose={closeHandler}>Закрыть</button>
+            <button onClick={onClose}>Закрыть</button>
         </div>
     );
 }
