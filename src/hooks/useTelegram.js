@@ -1,31 +1,33 @@
+import { useEffect } from 'react';
 
-
-export function useTelegram() {
+const useTelegram = () => {
     const tg = window.Telegram?.WebApp;
-    if (!tg) {
-        console.error("Telegram WebApp not initialized!");
-        return { tg: null };
-    }
 
-
-    const onClose = () => {
-        tg.close()
-    }
-
-
-    const onToggleButton = () => {
-        if(tg.MainButton.isVisible) {
-            tg.MainButton.hide()
-        } else {
-            tg.MainButton.show()
+    useEffect(() => {
+        // Динамическая загрузка SDK Telegram
+        if (!window.Telegram) {
+            const script = document.createElement('script');
+            script.src = 'https://telegram.org/js/telegram-web-app.js';
+            script.async = true;
+            script.onload = () => {
+                if (window.Telegram?.WebApp) {
+                    window.Telegram.WebApp.ready();
+                    window.Telegram.WebApp.expand();
+                }
+            };
+            document.body.appendChild(script);
+        } else if (window.Telegram?.WebApp) {
+            window.Telegram.WebApp.ready();
         }
-    }
 
+        return () => {
+            // Очистка при размонтировании
+            const telegramScript = document.querySelector('script[src="https://telegram.org/js/telegram-web-app.js"]');
+            if (telegramScript) document.body.removeChild(telegramScript);
+        };
+    }, []);
 
-    return {
-        onClose,
-        tg,
-        user: tg.initDataUnsafe?.user,
-        onToggleButton
-    }
-}
+    return { tg };
+};
+
+export default useTelegram;

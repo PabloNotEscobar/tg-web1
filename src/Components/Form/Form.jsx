@@ -1,46 +1,46 @@
-import React, {useEffect, useState} from 'react';
-import './Form.css'
-import {useTelegram} from "../../hooks/useTelegram";
+import React, { useEffect, useState } from 'react';
+import { useTelegram } from '../../hooks/useTelegram';
+import './Form.css';
 
 const Form = () => {
-
-    const [country, setCountry] = useState('')
-    const [street, setStreet] = useState('')
-    const [subject, setSubject] = useState('physical')
-    const {tg} = useTelegram()
-
+    const [country, setCountry] = useState('');
+    const [street, setStreet] = useState('');
+    const [subject, setSubject] = useState('physical');
+    const { tg } = useTelegram();
 
     useEffect(() => {
+        if (!tg?.MainButton) return;
+
+        // Настройка кнопки
         tg.MainButton.setParams({
-            text: 'Отправить данные'
-        })
-    }, [tg.MainButton])
+            text: 'Отправить данные',
+            color: '#32A6FB'
+        });
 
-
-    useEffect(() => {
-        if (!street || !country) {
-            tg.MainButton.hide()
+        // Показать/скрыть кнопку
+        if (!country || !street) {
+            tg.MainButton.hide();
         } else {
-            tg.MainButton.show()
+            tg.MainButton.show();
         }
-    }, [country, street, tg.MainButton])
 
+        // Обработчик клика
+        const onMainButtonClick = () => {
+            tg.sendData(JSON.stringify({
+                country,
+                street,
+                subject
+            }));
+            tg.close();
+        };
 
-    const onChangeCountry = (e) => {
-        setCountry(e.target.value)
-    }
+        tg.MainButton.onClick(onMainButtonClick);
+        return () => tg.MainButton.offClick(onMainButtonClick);
+    }, [tg, country, street, subject]);
 
-
-    const onChangeStreet = (e) => {
-        setStreet(e.target.value)
-    }
-
-
-
-    const onChangeSubject = (e) => {
-        setSubject(e.target.value)
-    }
-
+    const onChangeCountry = (e) => setCountry(e.target.value);
+    const onChangeStreet = (e) => setStreet(e.target.value);
+    const onChangeSubject = (e) => setSubject(e.target.value);
 
     return (
         <div className="form">
@@ -59,9 +59,13 @@ const Form = () => {
                 placeholder="Улица"
                 onChange={onChangeStreet}
             />
-            <select value={subject} onChange={onChangeSubject} className='select'>
-                <option value='physical'>Физ. лицо</option>
-                <option value='legal'>Юр. лицо</option>
+            <select
+                value={subject}
+                onChange={onChangeSubject}
+                className="select"
+            >
+                <option value="physical">Физ. лицо</option>
+                <option value="legal">Юр. лицо</option>
             </select>
         </div>
     );

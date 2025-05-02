@@ -1,28 +1,8 @@
+import Form from './components/Form/Form';
 import './App.css';
-import {useEffect} from "react";
-import Header from "./Components/Header/Header";
-import {useTelegram} from "./hooks/useTelegram";
-import {Route, Routes} from "react-router-dom";
-// import ProductList from "./Components/ProductList/ProductList";
-import Form from "./Components/Form/Form";
-
 
 function App() {
-    const {tg} = useTelegram()
-
-    useEffect(() => {
-        tg.ready()
-    }, [tg])
-
-
-    return (
-        <div className="App">
-            <Header/>
-            <Routes>
-                <Route index element={<Form />}/>
-            </Routes>
-        </div>
-    );
+    return <Form />;
 }
-//
+
 export default App;
