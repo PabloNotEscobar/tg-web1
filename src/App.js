@@ -8,7 +8,7 @@ import Form from "./Components/Form/Form";
 
 
 function App() {
-    const {tg} = useTelegram()
+    const { tg } = useTelegram()
 
     useEffect(() => {
         tg.ready()
@@ -20,7 +20,7 @@ function App() {
             <Header/>
             <Routes>
                 <Route index element={<ProductList />}/>
-                <Route path={'form'} element={<Form />}/>
+                <Route path="form" element={<Form />}/>
             </Routes>
         </div>
     );
