@@ -1,19 +1,20 @@
 import './App.css';
-import Header from "./Components/Header/Header";
-import {Route, Routes} from "react-router-dom";
-import ProductList from "./Components/ProductList/ProductList";
+import {useEffect} from "react";
+import {useTelegram} from "./hooks/useTelegram";
 import Form from "./Components/Form/Form";
 
 
 function App() {
+    const {tg} = useTelegram()
+
+    useEffect(() => {
+        tg.ready()
+    }, [tg])
+
 
     return (
         <div className="App">
-            <Header/>
-            <Routes>
-                <Route index element={<ProductList />}/>
-                <Route path={'/'} element={<Form />}/>
-            </Routes>
+            <Form />
         </div>
     );
 }
