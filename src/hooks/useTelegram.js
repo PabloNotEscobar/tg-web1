@@ -1,7 +1,12 @@
 
 
 export function useTelegram() {
-    const tg = window.Telegram.WebApp
+    const tg = window.Telegram?.WebApp;
+    if (!tg) {
+        console.error("Telegram WebApp not initialized!");
+        return { tg: null };
+    }
+
 
     const onClose = () => {
         tg.close()
