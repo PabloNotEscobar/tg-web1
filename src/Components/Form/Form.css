@@ -1,25 +1,17 @@
 .form {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     padding: 20px;
-    background: var(--tg-theme-bg-color, #ffffff);
-    color: var(--tg-theme-text-color, #222222);
-    min-height: 100vh;
 }
 
 .input {
     width: 100%;
-    padding: 10px 15px;
-    margin-bottom: 15px;
-    border: 1px solid var(--tg-theme-hint-color, #cccccc);
-    border-radius: 8px;
-    background: var(--tg-theme-secondary-bg-color, #f4f4f4);
-    color: var(--tg-theme-text-color, #222222);
+    margin-top: 10px;
+    padding: 5px;
 }
 
 .select {
-    width: 100%;
-    padding: 10px 15px;
-    border: 1px solid var(--tg-theme-hint-color, #cccccc);
-    border-radius: 8px;
-    background: var(--tg-theme-secondary-bg-color, #f4f4f4);
-    color: var(--tg-theme-text-color, #222222);
+    margin-top: 10px;
+    padding: 5px;
 }
