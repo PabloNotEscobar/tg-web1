@@ -32,7 +32,7 @@ const ProductList = () => {
             totalPrice: getTotalPrice(addedItems),
             queryId
         }
-        fetch('http://localhost:8000', {
+        fetch('https://tg-web-bck-shop-3.onrender.com', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
