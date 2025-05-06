@@ -26,25 +26,44 @@ const ProductList = () => {
     const { tg, queryId} = useTelegram()
 
 
+    // В вашем App.jsx или компоненте, где используется кнопка MainButton
     const onSendData = useCallback(() => {
+        const queryId = tg.initDataUnsafe?.query_id;
+        console.log('Query ID:', queryId); // Проверяем, что queryId существует
+
+        if (!queryId) {
+            console.error('No query_id found in tg.initDataUnsafe');
+            alert('Ошибка: не найден query_id');
+            return;
+        }
+
         const data = {
             products: addedItems,
             totalPrice: getTotalPrice(addedItems),
-            queryId
+            queryId: queryId
         }
-        fetch('https://1bec41e9-8341-4e1c-b1bb-a27676ded99a-00-239axik3i8w3b.pike.replit.dev/web-data', {
+
+        console.log('Sending data:', data);
+
+        fetch('https://tg-web-bck-shop.0kvestik0.repl.co/web-data', {
             method: 'POST',
             headers: {
-                'Content-Type': 'application/json'
+                'Content-Type': 'application/json',
             },
             body: JSON.stringify(data)
         })
-        .then(response => response.json())
-        .then(data => {
-            tg.WebApp.sendData(JSON.stringify(data)); // Отправляем результат в Telegram
-            tg.WebApp.close();
-        });
-    }, [addedItems, queryId, tg])
+            .then(response => {
+                console.log('Response status:', response.status);
+                return response.json();
+            })
+            .then(data => {
+                console.log('Success:', data);
+                tg.close();
+            })
+            .catch(error => {
+                console.error('Error sending data:', error);
+            });
+    }, [addedItems, tg]);
 
     useEffect(() => {
         tg.onEvent('mainButtonClicked', onSendData)
