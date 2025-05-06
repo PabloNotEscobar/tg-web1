@@ -39,7 +39,11 @@ const ProductList = () => {
             },
             body: JSON.stringify(data)
         })
-        tg.sendData(JSON.stringify(data))
+        .then(response => response.json())
+        .then(data => {
+            tg.WebApp.sendData(JSON.stringify(data)); // Отправляем результат в Telegram
+            tg.WebApp.close();
+        });
     }, [addedItems, queryId, tg])
 
     useEffect(() => {
