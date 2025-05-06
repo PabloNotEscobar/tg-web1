@@ -32,7 +32,7 @@ const ProductList = () => {
             totalPrice: getTotalPrice(addedItems),
             queryId
         }
-        fetch('https://replit.com/@0kvestik0/tg-web-bck-shop', {
+        fetch('https://replit.com/@0kvestik0/tg-web-bck-shop/web-data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
