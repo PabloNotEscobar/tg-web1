@@ -39,6 +39,7 @@ const ProductList = () => {
             },
             body: JSON.stringify(data)
         })
+        console.log('бэк схватил')
     }, [addedItems, queryId])
 
     useEffect(() => {
