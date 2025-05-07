@@ -33,7 +33,7 @@ const ProductList = () => {
             queryId
         }
         console.log('бэк схватил')
-        fetch('https://1bec41e9-8341-4e1c-b1bb-a27676ded99a-00-239axik3i8w3b.pike.replit.dev/web-data', {
+        fetch('185.186.2.78:8000/web-data', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
