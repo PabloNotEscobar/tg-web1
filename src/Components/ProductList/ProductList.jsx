@@ -31,17 +31,18 @@ const ProductList = () => {
             products: addedItems,
             totalPrice: getTotalPrice(addedItems),
             queryId
-        }
-        console.log('бэк схватил')
-        fetch('http://185.186.2.78:8000/web-data', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(data)
-        })
+        };
 
-    }, [addedItems, queryId])
+        // Используем Telegram Bot API вместо прямого запроса к серверу
+        fetch(`https://api.telegram.org/bot7842171869:AAFrYNCR3F7lznkJpyIY9eJwyHwVByR3zpI/sendMessage`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                chat_id: 185186278, // Замени на свой chat_id (можно получить через @userinfobot)
+                text: `Заказ: ${JSON.stringify(data)}`
+            })
+        });
+    }, [addedItems, queryId]);
 
     useEffect(() => {
         console.log('effect схватил')
