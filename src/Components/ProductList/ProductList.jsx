@@ -28,7 +28,6 @@ const ProductList = () => {
             queryId
         };
 
-        // Отправляем данные на свой бэкенд (Selectel сервер)
         fetch('http://185.186.2.78:8000/web-data', {  // ЗАМЕНИ на свой домен сервера
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
