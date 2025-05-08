@@ -28,7 +28,7 @@ const ProductList = () => {
             queryId
         };
 
-        fetch('http://185.186.2.78:8000/web-data', {  // ЗАМЕНИ на свой домен сервера
+        fetch('https://tg-shop-bck.onrender.com/web-data', {  // ЗАМЕНИ на свой домен сервера
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(data)
